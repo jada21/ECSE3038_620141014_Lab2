@@ -31,18 +31,18 @@ async def create_todo(request: Request):
     fake_database.append(todo)
     return todo
     
-    
 @app.get("/todos/{id}")
 async def get_todoid(id: int):
     return fake_database[id]
 
-@app.patch("/todos/{id}")
+@app.patch("/todos/{id}", status_code=200)
 async def update_todo_by_id(id: int, request: Request):
     new_todo = await request.json()
     for todo in fake_database:
         if (todo["id"]==id):
             updated_todo=todo.update(new_todo)
     return updated_todo
+    
 
 @app.delete("/todos/{id}", status_code=200)
 async def delete_todo_by_id(id: int):
